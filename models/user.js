@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default: date.now,
+    default: Date.now,
   },
 });
 

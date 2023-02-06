@@ -13,6 +13,7 @@ const User = require('../../models/user');
 // @access:  Public
 // router.get('/', (req, res) => res.send('Auth route'));
 
+
 // @route:   GET api/auth
 // @desc:    Get User from jsonwebtoken route
 // @access:  Public
@@ -27,7 +28,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 // @route:   GET api/auth
-// @desc:    Authenticate User & get Token
+// @desc:    Authenticate User, Login & get Token
 // @access: Public
 router.post(
   '/',
@@ -45,6 +46,7 @@ router.post(
 
     try {
       let user = await User.findOne({ email });
+
       if (!user) {
         return res
           .status(400)
@@ -62,6 +64,7 @@ router.post(
       const payload = {
         user: {
           id: user.id,
+          isAdmin: user.isAdmin,
         },
       };
 
@@ -74,6 +77,7 @@ router.post(
           res.json({ token });
         }
       );
+
     } catch (err) {}
   }
 );

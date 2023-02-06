@@ -20,8 +20,8 @@ const UserSchema = new mongoose.Schema({
   },
   isAdmin: {
     type: Boolean,
-    default: false
-  }
+    default: false,
+  },
 });
 
 module.exports = User = mongoose.model('user', UserSchema);

@@ -6,13 +6,12 @@ const config = require('config');
 const bcrypt = require('bcryptjs');
 const { check, validationResult } = require('express-validator');
 
-const User = require('../../models/user');
+const User = require('../../models/User');
 
 // @route:   GET api/auth
 // @desc:    Test route
 // @access:  Public
 // router.get('/', (req, res) => res.send('Auth route'));
-
 
 // @route:   GET api/auth
 // @desc:    Get User from jsonwebtoken route
@@ -77,7 +76,6 @@ router.post(
           res.json({ token });
         }
       );
-
     } catch (err) {}
   }
 );

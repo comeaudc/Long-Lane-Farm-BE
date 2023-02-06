@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
 
-const User = require('../../models/user');
+const User = require('../../models/User');
 
 // @route:   GET api/users
 // @desc:    Test route
@@ -63,7 +63,7 @@ router.post(
       const payload = {
         user: {
           id: user.id,
-          isAdmin: user.isAdmin
+          isAdmin: user.isAdmin,
         },
       };
 

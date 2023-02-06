@@ -3,8 +3,6 @@ const router = express.Router();
 const adminAuth = require('../../middleware/adminAuth');
 const auth = require('../../middleware/auth');
 
-const User = require('../../models/user');
-
 // @route:   GET api/products
 // @desc:    Test Route
 // @access: Public

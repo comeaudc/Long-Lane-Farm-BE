@@ -3,10 +3,10 @@ const router = express.Router();
 const adminAuth = require('../../middleware/adminAuth');
 const { check, validationResult } = require('express-validator');
 const auth = require('../../middleware/auth');
-const Vegetable = require('../../models/Vegetable');
+const CSA = require('../../models/CSA');
 
-// @route:  POST api/vegetables
-// @desc:   Create a Vegetable
+// @route:  POST api/csas
+// @desc:   Create a csa
 // @access: Private
 router.post(
   '/',
@@ -18,50 +18,54 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { name, pricing } = req.body;
+    const { name, price, frequency, description, isAvail } = req.body;
+
 
     try {
-      let vegetable = await Vegetable.findOne({ name });
+      let csa = await CSA.findOne({ name });
 
-      if (vegetable) {
+      if (csa) {
         return res
           .status(400)
-          .json({ errors: [{ msg: 'Vegetable already exists' }] });
+          .json({ errors: [{ msg: 'CSA already exists' }] });
       }
 
-      const newVegetable = new Vegetable({
+      const newCSA = new CSA({
         name,
-        pricing,
+        price,
+        frequency,
+        description,
+        isAvail,
       });
 
-      vegetable = await newVegetable.save();
+      csa = await newCSA.save();
 
-      res.json(vegetable);
+      res.json(csa);
     } catch (err) {
       console.error(err.message), res.status(500).send('Server Error');
     }
   }
 );
 
-// @route:  DELETE api/vegetables
-// @desc:   Delete a Vegetable
+// @route:  DELETE api/csas
+// @desc:   Delete a csa
 // @access: Private
 router.delete('/:id', adminAuth, async (req, res) => {
   try {
-    const vegetable = await Vegetable.findById(req.params.id);
+    const csa = await CSA.findById(req.params.id);
 
-    if (!vegetable) {
-      return res.status(401).json({ msg: 'Vegetables not found' });
+    if (!csa) {
+      return res.status(401).json({ msg: 'CSA not found' });
     }
 
-    await vegetable.remove();
+    await csa.remove();
 
-    res.json({ msg: 'Vegetable removed' });
+    res.json({ msg: 'CSA removed' });
   } catch (err) {
     console.error(err.message);
 
     if (err.kind === 'ObjectId') {
-      return res.status(404).json({ msg: 'Vegetable not found' });
+      return res.status(404).json({ msg: 'CSA not found' });
     }
   }
 });

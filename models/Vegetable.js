@@ -19,11 +19,10 @@ const VegetableSchema = new Schema({
         type: Number,
       },
       qty: {
-        type: Number
+        type: Number,
       },
       isAvailable: {
         type: Boolean,
-        default: false,
       },
     },
   ],
